@@ -1,0 +1,38 @@
+header {
+	background: #1a1d20;
+}
+.slider {
+	height: 70vh;
+	background: url('img/everest.jpg') bottom center/cover no-repeat fixed;
+	overflow: hidden;
+}
+#rog1, #rog2 {
+	background: #2ec3e3;
+	height: 100px;
+	width: 50%;
+}
+#rog1{
+	transform: translate(0, -80px) skew(0, 6deg);
+}
+#rog2 {
+	transform: translate(100%, -180px) skew(0, -6deg);
+}
+.slider h2 {
+	font: normal 2.2em 'Open Sans', sans-serif;
+}
+.features {
+	background: #2ec3e3;
+}
+#separator div {
+	height: 10px;
+}
+.text-style{
+	font:normal 1.1em 'Open Sans';
+	color:#ffffff;
+}
+.contet-height{
+	height:200px;
+}
+.x{
+	border:1px solid #111314;
+}

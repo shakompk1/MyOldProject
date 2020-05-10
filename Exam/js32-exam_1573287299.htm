@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Imtahan yerleshdirilmesi</title>
+		<style>
+			#zal{ display: flex; }
+			.sira { flex:1; }
+			.parta {display: flex;border: 1px solid silver;margin:20px;width:170px;height:80px;}
+			.yer {flex:1;border:1px solid black;text-align:center;}
+			#start{
+				background:silver;
+			}
+			button{
+				padding:5px 40px;
+				background:green;
+				margin-left:50%;
+				transform: translate(-50%,0); 
+			}
+			fieldset{width:200px;margin:auto;text-align:center;}
+			.text{display:none;width:200px;height:400px;}
+			#input{
+				display:flex;
+				justify-content:center;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="start">
+			<fieldset>
+				<legend>Imtahan sayi</legend>
+				<input  type="checkbox"/>1
+				<input  type="checkbox"/>2
+				<input  type="checkbox"/>3
+				<input  type="checkbox"/>4
+			</fieldset>
+			<div id="input">
+				<textarea class="text"></textarea>
+				<textarea class="text"></textarea>
+				<textarea class="text"></textarea>
+				<textarea class="text"></textarea>
+			</div>
+			
+			<button onclick="pushnames()">Ok</button>
+		</div>
+		<div id="zal"></div>		
+		<script>
+			const sira = 6;
+			const cerge = 20;
+			let zal = document.getElementById("zal");
+			let n = 0;
+			let checkbox = document.getElementsByTagName('input');
+			let text = document.getElementsByClassName('text');
+			
+			for(i=0;i<checkbox.length;i++){
+			checkbox[i].onclick = enter;
+			}
+			function enter(){
+				
+				for(i=0;i<=checkbox.length;i++){
+					if(checkbox[i].checked){
+						text[i].style.display = "block";
+					}
+					else{
+						text[i].style.display = "none";
+					}
+				}
+				
+			}
+			function pushnames(){
+				let AValue = text[0].value; 
+				let A = AValue.split('\n');
+				
+				let BValue = text[1].value; 
+				let B = BValue.split('\n');
+				
+				let CValue = text[2].value; 
+				let C = CValue.split('\n');
+				
+				let DValue = text[3].value; 
+				let D = DValue.split('\n');
+				
+				show()
+				
+				
+				for(i=1;i<=sira;i++){
+					for(j=1;j<=cerge;j++){
+					a = 0;
+					b = 0;
+					c = 0;
+					d = 0;
+						if(j%2){
+							document.getElementById(i+'-'+j+'-A').innerHTML =i+'-'+j+'-A'+'<br>' + A[a];
+							document.getElementById(i+'-'+j+'-A').style.backgroundColor = 'green';
+							A.splice(a, 1);
+							if(document.getElementById(i+'-'+j+'-A').innerHTML ==i+'-'+j+'-A'+'<br>'+""){
+								document.getElementById(i+'-'+j+'-A').innerHTML =i+'-'+j+'-A'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-A').style.backgroundColor = 'red';
+							}
+							else if(document.getElementById(i+'-'+j+'-A').innerHTML ==i+'-'+j+'-A'+'<br>'+"undefined"){
+								document.getElementById(i+'-'+j+'-A').innerHTML =i+'-'+j+'-A'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-A').style.backgroundColor = 'red';
+							}	
+							
+							document.getElementById(i+'-'+j+'-B').innerHTML =i+'-'+j+'-B'+'<br>'+B[b];
+							document.getElementById(i+'-'+j+'-B').style.backgroundColor = 'green';
+							B.splice(b, 1);							
+							if(document.getElementById(i+'-'+j+'-B').innerHTML ==i+'-'+j+'-B'+'<br>'+""){
+								document.getElementById(i+'-'+j+'-B').innerHTML =i+'-'+j+'-B'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-B').style.backgroundColor = 'red';
+							}
+							else if(document.getElementById(i+'-'+j+'-B').innerHTML ==i+'-'+j+'-B'+'<br>'+"undefined"){
+								document.getElementById(i+'-'+j+'-B').innerHTML =i+'-'+j+'-B'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-B').style.backgroundColor = 'red';
+							}							
+						}else{
+							document.getElementById(i+'-'+j+'-A').innerHTML =i+'-'+j+'-A'+'<br>' + C[c];
+							document.getElementById(i+'-'+j+'-A').style.backgroundColor = 'green';
+							C.splice(c, 1);
+							if(document.getElementById(i+'-'+j+'-A').innerHTML ==i+'-'+j+'-A'+'<br>'+""){
+								document.getElementById(i+'-'+j+'-A').innerHTML =i+'-'+j+'-A'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-A').style.backgroundColor = 'red';
+							}
+							else if(document.getElementById(i+'-'+j+'-A').innerHTML ==i+'-'+j+'-A'+'<br>'+"undefined"){
+								document.getElementById(i+'-'+j+'-A').innerHTML =i+'-'+j+'-A'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-A').style.backgroundColor = 'red';
+							}	
+																					
+							document.getElementById(i+'-'+j+'-B').innerHTML =i+'-'+j+'-B'+'<br>' + D[d];
+							document.getElementById(i+'-'+j+'-B').style.backgroundColor = 'green';
+							D.splice(d, 1);
+							if(document.getElementById(i+'-'+j+'-B').innerHTML ==i+'-'+j+'-B'+'<br>'+""){
+								document.getElementById(i+'-'+j+'-B').innerHTML =i+'-'+j+'-B'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-B').style.backgroundColor = 'red';
+							}
+							else if(document.getElementById(i+'-'+j+'-B').innerHTML ==i+'-'+j+'-B'+'<br>'+"undefined"){
+								document.getElementById(i+'-'+j+'-B').innerHTML =i+'-'+j+'-B'+'<br>'+ "Boş yer";
+								document.getElementById(i+'-'+j+'-B').style.backgroundColor = 'red';
+							}							
+						}						
+					}
+				}
+				for(i=0;i<=checkbox.length;i++){
+					if(checkbox[i].checked ==true){
+						checkbox[i].checked = false
+					}
+					text[i].style.display = "none";
+				}
+				
+			}
+			function show(){
+				let code ="";				
+				for(i = 1; i <= sira; i++){
+					code += '<div class="sira"> ';
+					for(j = 1; j <= cerge; j++){
+						code += '<div class="parta">';					
+						for(d = 1; d < 3; d++){
+							code += '<div class = "yer" id="'+ i + '-'+ j + '-'+ ((d%2)?"A":"B") +'"></div>'
+						}
+						code += '</div>';				
+					}					
+					code += '</div>'					
+				}
+				zal.innerHTML = code;
+			}
+			
+		</script>
+	</body>
+</html>

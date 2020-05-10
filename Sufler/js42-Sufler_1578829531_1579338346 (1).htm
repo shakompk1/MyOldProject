@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Sufler</title>
+		<style>
+			body { margin: 0; }
+			#start { text-align: center; }
+			#text { width: 800px; height: 600px; resize: none; }
+			#panel { height: 100vh; display: none; flex-direction: column; text-align: center; }
+			#settings { background: #efefef; height: 100px; }
+			#display { background: #000; height: 100%; color: #00ff00; 
+				font: 5em Arial; overflow: hidden; position: relative;}
+			#container { position: absolute; }
+		</style>
+	</head>
+	<body>
+		<div id="start">
+			<textarea id="text"></textarea>
+			<p><button id="ok">Пошел !</button></p>
+		</div>
+		<div id="panel">
+			<div id="settings">
+				<p>
+					<button id="stop" onclick="stop()">Stop</button>
+					<button id="positively" onclick="positively()" >+</button>
+					<button id="nigative" onclick="nigative()" >-</button>
+					<button id="initially" onclick="initially()" >initially</button>
+					<input id="color" type="color" onchange="set('color','','')"/>
+					<input id="fontSize" min="1" max="5" value="1" type="range" onchange="set('fontSize','','em')"/>
+					<button type="submit" class="sbmt" onclick="document.documentElement.requestFullscreen();" style="">❏</button>
+					<select id="textTransform" value="capitalize" onchange="set('textTransform','','')">
+						<option>Capitalize</option>
+						<option>Uppercase</option>
+						<option>Lowercase</option>
+					</select>
+					<input id="fontWeight" type="checkbox" onchange="set(this)" />
+					<input id="fontStyle"  type="checkbox" onchange="set(this)"/>
+				</p>
+			</div>
+			<div id="display">
+				<div id="container"></div>	
+			</div>
+		</div>
+		<script>
+			document.getElementById('ok').onclick = start;
+			let container = document.getElementById('container');
+			
+			let x;
+			let y = 1;
+			let num = 1;
+			function initially(){
+				x = document.getElementById('display').offsetHeight/2;
+				scrl(x)
+				y= 1 
+				stop(y)
+			}
+			function stop(){
+				let stop = document.getElementById('stop')
+				y *= -1;
+				scrl(y)
+				if(y>0) stop.innerHTML = "Stop"
+				else stop.innerHTML = "Start"
+			}
+			function positively(){
+				num+=1;
+				scrl(num)
+			}
+			function nigative(){
+				if(num>1)num-=1
+				else num = 1;
+				scrl(num)
+			}
+			function start() {
+				let textt = document.getElementById('text').value;
+				document.getElementById('start').style.display = "none";
+				document.getElementById('panel').style.display = "flex";
+				x = document.getElementById('display').offsetHeight/2;
+				go(textt);
+				
+			}
+			function go(textt) {
+				container.innerHTML = textt;
+				setInterval( ()=>scrl(), 50);
+			}
+			function scrl() {
+				if (container.offsetHeight > -1*x + 20 && y>0) x-=num;
+				else x = x ;
+				container.style.top = x + "px";
+			}
+			function set(prop,val,unit){
+				if(prop.id == 'fontWeight') {
+					val = (prop.checked)? 700:400;
+					unit = '';
+					prop = prop.id;
+				} else if(prop.id == 'fontStyle') {
+					val = (prop.checked)? 'italic':'';
+					unit = '';
+					prop = prop.id;
+				} else val = document.getElementById(prop).value;
+				
+				container.style[prop] = val + unit;
+				
+			}
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

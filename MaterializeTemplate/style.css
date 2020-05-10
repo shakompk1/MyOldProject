@@ -1,0 +1,19 @@
+body {
+	background: url('img/bg.jpg');
+}
+header nav {
+	background: rgba(255,255,255,.5);
+	min-height: 140px;
+	padding: 30px;
+}
+.iconzz i {
+	color: #a0a1a5;
+}
+article .card h3 {
+	margin: 0;
+}
+footer nav {
+	background: #202020;
+	min-height: 140px;
+	padding: 30px;
+}

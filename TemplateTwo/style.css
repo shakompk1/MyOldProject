@@ -1,0 +1,268 @@
+:root {
+  --blue: #2096da;
+  --silver: #c5c5c5;
+  --gray: #7f7c7c;
+}
+.container {
+	max-width: 960px;
+	margin: auto;
+	display: grid;
+}
+.c1 {
+	grid-template-areas: 'i' 'l' 'm';
+	text-align: center;
+}
+#logo { 
+	grid-area: l; 
+	background: var(--blue);
+	padding: 35px 15px;
+}
+#info { 
+	grid-area: i; 
+	color: var(--gray);
+}
+#menu { 
+	grid-area: m; 
+	color: white;
+}
+#menu li {
+	padding: 9px;
+}
+#menu li:hover {
+	background:var(--blue);
+	cursor:pointer;
+}
+#header {
+	background: #1b1b1b;
+	border-bottom: 5px solid var(--blue);
+}
+#main {
+	background: url('img/bg1.jpg') bottom repeat-x,
+				url('img/bg2.jpg');
+	min-height: 1000px;
+}
+.c2 {
+	grid-template-columns: 229px;
+	justify-content:center;
+	padding: 45px 0;
+	grid-gap: 15px;
+}
+.c2 div {
+	border: 1px solid silver;
+	background:#403f3f;	
+	height:214px;
+}
+.c2 div img{
+	padding:0 0 0 0;
+	width:227px;
+	height:212px;
+}
+.icon {	
+	display: grid;
+	grid-gap:10px 20px;
+	grid-template-columns: auto auto;
+	justify-content:center;
+}
+.icon	div{
+	width:100px;
+	height:110px;
+	border:1px solid #151517;
+	border-radius:50%;
+	background:rgba(32, 32, 34, 0.5);
+	text-align:center;
+}
+.icon i{
+	padding:28px 0 0 0;
+    font-size:3em;
+	color:#777777;
+}
+.c4 {
+	display:grid;
+	justify-content:center;
+	padding:0 0 35 0px;	
+}
+.c4 h1{
+	font-size:normal 18px "Armata";
+	color: #c5c5c5;
+	font-weight: 400;
+	text-align:center;
+	padding:34px;
+	border:0;
+}
+.stream {
+	display:grid;
+	grid-template-columns: auto auto ;
+	grid-gap:1px 1px;
+	justify-content:center;
+	
+}
+.stream h1{
+	grid-column: 1/ span 2;
+	
+}
+.stream div{
+	width:80px;
+	height:70px;
+	border:5px solid #262627;
+	padding:15px;
+	background:#403f3f;
+}
+.posts {
+	display:grid;
+	grid-template-columns: auto auto;
+	grid-tempate-rows:auto 250px;
+	justify-content: center;
+	grid-gap:1px 1px;
+	
+}
+.posts h1 {
+	font-size:normal 18px "Armata";
+	color: #c5c5c5;
+	font-weight: 400;
+	text-align:center;
+	padding:34px;
+	border:0;
+	grid-column: span 2;
+}
+.posts div{
+	width:80px;
+	height:70px;
+	border:5px solid #262627;
+	padding:15px;
+	background:#403f3f;
+}
+.posts p{
+	margin:-20px 0 0 -20px;
+	padding:5px;
+	width:160px;	
+	height:70px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #c5c5c5;
+	font-family: "Karla";
+	font-weight: 400;
+}
+#lastdiv{
+	width:160px;
+	height:70px;
+	border:5px solid #1b1b1c;
+	padding:15px;
+	background:#1b1b1c;
+}
+#superlastdiv{
+	width:160px;
+	height:70px;
+	border:5px solid #1b1b1c;
+	padding:15px;
+	background:#1b1b1c;
+}
+.stay {
+	display:grid;
+	grid-template-columns: auto ;
+	grid-tempate-rows:auto 250px;
+	justify-content: start;
+	grid-gap:11px 1px;
+}
+.stay input{
+	width:274px;
+	height:36px;
+	border:0 ;
+	background:#272727;
+	padding: 10px ;
+	font-size: 14px;
+	letter-spacing: 0px;
+	line-height: 30px;
+	color: #c3c2c2;
+	font-family: "Karla";
+	font-weight: 400;
+	font-style: italic;
+	border:0 ;
+}
+.stay input:last-child{
+	width:100px;
+	height:38px;
+	border:0 ;
+	background:#272727;
+	padding: 5px ;
+	font-size: 14px;
+	letter-spacing: 0px;
+	line-height: 30px;
+	color: #c3c2c2;
+	font-family: "Karla";
+	font-weight: 400;
+	font-style: italic;
+	margin-left:174px;
+}
+.c3{
+	display:grid;
+	grid-template-columns: auto;
+	grid-template-rows:10px;
+}
+.c3 div{
+	font-size: 12px;
+	line-height: 50px;
+	color: #ffffff;
+	font-family: "Karla";
+	text-align: center;
+	margin-top:-15px;
+}
+.c3 div:last-child{
+	font-size: 12px;
+	line-height: 50px;
+	color: #ffffff;
+	font-family: "Karla";
+	text-align: center;
+	margin-top:-15px;
+}
+#footer {
+	background:var(--blue);
+	padding: 0;
+}
+@media only screen and (min-width: 768px) {
+	.c1 { 
+		grid-template-areas: 'l i' 'l m';
+		grid-template-rows: auto 30px;
+		justify-content: space-between;
+	}
+	#menu li {
+		display: inline-block;
+	}
+	.c2 {
+		grid-template-columns: 229px 229px 229px 229px;
+		grid-template-rows: 214px 214px 214px 214px;
+	}
+	.c2 div{
+		height:auto;
+	}
+	.rows {
+		grid-row: span 2;
+	}
+	.cols {
+		grid-column: span 2;
+	}
+	.icon {
+		grid-gap:10px 40px;
+		grid-template-columns: auto auto auto auto auto auto auto;
+	}
+	.c3{
+	display:grid;
+	grid-template-columns: auto auto;
+	grid-template-rows:10px 10px;
+	}
+	.c3 div{
+		text-align:left;
+	}
+	.c3 div:last-child{
+		text-align:right;
+	}
+	.c4{
+		grid-template-columns: auto auto auto;
+		justify-content: space-between;
+	}
+	.stream {
+		grid-template-columns: auto auto auto;
+	}
+	.stream h1{
+		grid-column: 1/ span 3;
+	}
+}

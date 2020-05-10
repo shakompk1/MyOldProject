@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Arcanoid</title>
+		<style>
+			body {background: gray;display:flex;}
+			#starts{display:block;}
+			#game {width:800px; height:600px; margin:0 auto; background: white;position:relative;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<button id="starts" onclick="stargame()">Startgame</button>
+			<button id="lvl" onclick="nextlvl()">Next lvl</button>
+		</div>
+		<div id="game">
+		</div>
+		
+		<script>
+			let game = document.getElementById("game");
+			let starts = document.getElementById("starts");
+			let bm = 2;
+			let bn = 4;
+			let ba = 5;  //margin
+			let live = 3;
+			let bricks = [];
+
+			let ball = {
+				name: "ball",
+				radius: 10,
+				color: "red",
+				dx : 5,
+				dy : -5,
+				get x() { return(this._x)?  this._x : game.offsetWidth/2 - this.radius	},
+				get y() { return(this._y)?  this._y : game.offsetHeight - 2*this.radius-1 },		
+				set x(valx) {this._x = (valx)? valx: 1},
+				set y(valy) {this._y = (valy)? valy: 1}
+			}			
+			let bar = {
+				name: "bar",
+				color: "blue",
+				w: 100,
+				h: 10,
+				dx: 20,
+				y: game.offsetHeight,
+				get x() { return(this._x) ?  this._x : (game.offsetWidth - this.w)/2},		
+				set x(valx) {this._x = (valx)? valx: 1}
+			}
+			
+			creatBricks();
+			putBrick();
+			putBall();
+			putBar();			
+			
+			let start = setInterval(movieBall,30);
+			document.onkeydown = movieBar;
+
+			function Brick(m,n) {
+				this.name = "b" + m + n;
+				this.w = 100;
+				this.h = 40;
+				this.color = "green";
+				this.x = (800-(this.w+2*ba)*bn)/2 + (n-1)*(this.w+2*ba)+ba; 
+				this.y =(m-1)*(this.h +2*ba) + ba;
+				this.status = 1; 
+			}			
+			function creatBricks(){
+				bricks = [];
+				for(i=1;i<=bm;i++){
+					for(j=1;j<=bn;j++){
+						bricks.push(new Brick(i,j))
+					}
+				}
+			}
+			function checkBall(){
+				if(ball.x <= 0 || ball.x >= game.offsetWidth-2*ball.radius) ball.dx *= -1;
+				if(ball.y <= 0 ) ball.dy *= -1;
+				if(ball.y >= game.offsetHeight-2*ball.radius){
+					if(ball.x > bar.x-ball.radius && ball.x < bar.x+bar.w-ball.radius) ball.dy *= -1;
+					else{
+						ball.dy *= -1
+						live-=1;
+						gameOver();
+					}
+				}
+				for(i=0; i<bm*bn; i++){
+					if( bricks[i].status == 1 &&
+						ball.y >= bricks[i].y - 2*ball.radius && 
+						ball.y <= bricks[i].y + bricks[i].h &&
+						ball.x >= bricks[i].x - 2*ball.radius &&
+						ball.x <= bricks[i].x + bricks[i].w ){
+						
+						if(ball.x > bricks[i].x - ball.radius &&
+						ball.x < bricks[i].x + bricks[i].w - ball.radius) ball.dy *= -1;
+						else ball.dx *= -1;
+				
+						bricks[i].status = 0;					
+						putBrick();
+					}
+				}
+			}
+			function nextlvl(){
+				if(bm == 5 && bn == 7){
+					false
+				}
+				else {
+					bm++;
+					bn++;
+					ball.dy+=10
+				}
+				creatBricks()
+				stargame();
+			}
+			function stargame(){
+				live = 3;
+				clearInterval(start);
+				game.removeChild(document.getElementById(ball.name));
+				game.removeChild(document.getElementById(bar.name));
+				ball.x = game.offsetWidth/2 - ball.radius;
+				ball.y = game.offsetHeight - 2*ball.radius-1;
+				bar.x = (game.offsetWidth - bar.w)/2
+				for(i=0;i<bm*bn;i++){
+					bricks[i].status = 1;
+				}
+				start = setInterval(movieBall,30);
+				putBrick();
+				putBall();
+				putBar();	
+			}
+			function gameOver(){
+				if(live > 0) alert("У еще " + live + " жизни");
+				else{
+					clearInterval(start);
+					alert("Game over");
+									
+				}
+			}
+			function movieBar(e) {
+				if (e.keyCode == '37') bar.x -= bar.dx;
+				else if (e.keyCode == '39' && bar.x <= game.offsetWidth - bar.w) bar.x += bar.dx;
+				if(bar.x < 0) bar.x = 0;
+				game.removeChild(document.getElementById(bar.name));
+				putBar();
+			}				
+			function movieBall(){
+				checkBall();
+				ball.x += ball.dx;
+				ball.y += ball.dy;
+				game.removeChild(document.getElementById(ball.name));
+				putBall();
+			}
+			function putBall(){
+				let eBall = document.createElement("div");
+				eBall.setAttribute("id",ball.name);
+				eBall.setAttribute("style", "position:absolute;" +
+				"width:" + 2*ball.radius + "px;" + 
+				"height:" + 2*ball.radius + "px;" +
+				"border-radius:50%;" +
+				"top:"  + ball.y + "px;" +
+				"left:" + ball.x + "px;" +
+				"background-color:" + ball.color);
+				game.appendChild(eBall);
+			}			
+			function putBar(){
+				let eBar = document.createElement("div");
+				eBar.setAttribute("id", bar.name);
+				eBar.setAttribute("style", "position: absolute;" +
+				"width:" + bar.w + "px;" +
+				"height:" + bar.h + "px;" +
+				"top:" + bar.y + "px;" +
+				"left:" + bar.x + "px;" +
+				"background-color:" + bar.color);
+				game.appendChild(eBar);
+			}
+			function putBrick(){
+				let counter = 0;
+				for(i=0;i<bm*bn;i++){
+					let elem = document.getElementById(bricks[i].name);
+					if(elem !== null) game.removeChild(elem);
+					if(bricks[i].status){
+						let brick = document.createElement("div");
+						brick.setAttribute("id",bricks[i].name);
+						brick.setAttribute("style","position:absolute;"+
+						"width:" + bricks[i].w + "px;" + 
+						"height:" + bricks[i].h + "px;" +
+						"left:" + bricks[i].x + "px;" +
+						"top:" + bricks[i].y + "px;" +
+						"background-color:" + bricks[i].color);
+						game.appendChild(brick);
+						counter++;
+					}					
+				}
+				if(counter == 0) gameOver();
+			}
+		</script>
+	</body>
+</body>	
